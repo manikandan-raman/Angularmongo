@@ -6,6 +6,8 @@ router.get('/test',notes_controller.test);
 
 router.post('/create',notes_controller.create);
 
+router.get('/',notes_controller.notes);
+
 router.get('/:id',notes_controller.notes_details);
 
 router.put('/update/:id',notes_controller.notes_update);

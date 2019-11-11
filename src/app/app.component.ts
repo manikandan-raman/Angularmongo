@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
   
   ngOnInit() {
     this.notesForm = this.fb.group({
+      id:['',null],
       heading:['',Validators.required],
       description:['',Validators.required]
     });
@@ -34,8 +35,26 @@ export class AppComponent implements OnInit {
   }
 
   addNotes(){
+    let id = this.notesForm.controls['id'].value;
     if(this.notesForm.valid){
+      if(id)
+        this.appService.editNotes(id,this.notesForm.value).subscribe(data => {
+            this.getNotes('');
+        })
+      else
       this.appService.addNotes(this.notesForm.value).subscribe(data => console.log(data))
+
     }
+  }
+
+  editNotes(noteArr){
+    this.notesForm.reset();
+    this.notesForm.controls['id'].setValue(noteArr['_id']);
+    this.notesForm.controls['heading'].setValue(noteArr['heading']);
+    this.notesForm.controls['description'].setValue(noteArr['description']);
+  }
+
+  deleteNotes(id: string){
+    this.appService.deleteNotes(id).subscribe(data => console.log(data))
   }
 }

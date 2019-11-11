@@ -5,24 +5,26 @@
       <div class="mat-card-contents">
         <h3>Add Notes</h3>
         <div>
+          <input type="hidden" name="objectid" formControlName="id">
           <mat-form-field>
             <input type="text" matInput name="heading" id="heading" placeholder="Enter Heading" formControlName="heading">
           </mat-form-field>
         </div>
         <div>
           <mat-form-field>
-            <textarea name="desc" id="desc" cols="10" rows="10" matInput placeholder="Enter Description" formControlName="description"></textarea>
+            <textarea name="desc" id="desc" cols="10" rows="5" matInput placeholder="Enter Description" formControlName="description"></textarea>
           </mat-form-field>
         </div>
         <div>
             <button mat-raised-button color="primary" type="submit">Add Notes</button>
-      </div>
+        </div>
       </div>
     </mat-card>
   </form>
 </div>
 <div class="list-container">
   <div class="list" *ngFor="let note of notesList">
+    <mat-divider></mat-divider>
     <mat-card>
       <mat-card-header>
         {{note.heading}}
@@ -30,8 +32,8 @@
       <mat-card-content>
         {{note.description}}
       </mat-card-content>
-      <mat-icon>edit</mat-icon>
-      <mat-icon>delete</mat-icon>
+      <mat-icon (click)="editNotes(note)">edit</mat-icon>
+      <mat-icon (click)="deleteNotes(note._id)">delete</mat-icon>
     </mat-card>
   </div>
 </div>

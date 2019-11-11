@@ -16,3 +16,7 @@
     float: right;
     margin-top: 16px;
 }
+
+mat-icon{
+    cursor: pointer;
+}

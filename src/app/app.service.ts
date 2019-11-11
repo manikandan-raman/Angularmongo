@@ -11,10 +11,18 @@ export class AppService {
   constructor(private http: HttpClient) { }
 
   getNotes(id: string){
-    return this.http.get(`${this.uri}/${id}`).pipe(map((res: any) => res.json()));
+    return this.http.get(`${this.uri}/`);
   }
 
   addNotes(notesObj){
     return this.http.post(`${this.uri}/create`,notesObj).pipe(map((res: any) => res.json()));
+  }
+
+  editNotes(id:string,notesObj){
+    return this.http.put(`${this.uri}/update/${id}`,notesObj);
+  }
+
+  deleteNotes(id:string){
+    return this.http.delete(`${this.uri}/delete/${id}`);
   }
 }

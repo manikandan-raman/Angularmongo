@@ -2,6 +2,7 @@ const Note = require('../models/notes_model');
 
 
 exports.test = function (req, res) {
+    console.log('inside test');
     res.send('Greetings from the Test controller!');
 };
 
@@ -15,7 +16,10 @@ exports.create = (req,res) => {
 
     notes.save((err) => {
         if(err) throw err;
-        res.send('Notes Created Successfully');
+        res.json({
+            'status': 1,
+            'message':'Notes Created Successfully'
+        });
     })
 }
 
@@ -26,10 +30,19 @@ exports.notes_details = (req,res) => {
     });
 }
 
+exports.notes = (req,res) => {
+    Note.find({}).then(eachOne => {
+        res.json(eachOne);
+    })
+}
+
 exports.notes_update = (req,res) => {
     Note.findByIdAndUpdate(req.params.id,{$set: req.body},(err) => {
         if(err) throw err;
-        res.send('Notes Updted Successfully');
+        res.json({
+            'status': 1,
+            'message':'Notes Updated Successfully'
+        });
     })
 }
 
