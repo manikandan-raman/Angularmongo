@@ -21,4 +21,18 @@
     </mat-card>
   </form>
 </div>
+<div class="list-container">
+  <div class="list" *ngFor="let note of notesList">
+    <mat-card>
+      <mat-card-header>
+        {{note.heading}}
+      </mat-card-header>
+      <mat-card-content>
+        {{note.description}}
+      </mat-card-content>
+      <mat-icon>edit</mat-icon>
+      <mat-icon>delete</mat-icon>
+    </mat-card>
+  </div>
+</div>
 <router-outlet></router-outlet>
