@@ -1,0 +1,11 @@
+.container{
+    padding: 16px;
+    width: 300px;
+    height: auto;
+    align-items: center;
+}
+
+.mat-card-contents{
+    padding: 24px;
+    text-align: center;
+}
