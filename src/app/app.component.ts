@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AppService } from './app.service';
+import { AppService, Notes } from './app.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ export class AppComponent implements OnInit {
   
   title = 'mongorest';
   notesForm : FormGroup;
-  notesList = [];
+  notesList: Notes;
 
   constructor(private fb: FormBuilder, private appService : AppService){
 
@@ -24,11 +25,11 @@ export class AppComponent implements OnInit {
       description:['',Validators.required]
     });
 
-    this.getNotes('5dc8d9f86f0a2c13443d19e3');
+    this.getNotes();
   }
 
-  getNotes(id: string){
-    this.appService.getNotes(id).subscribe(data => {
+  getNotes(){
+    this.appService.getNotes().subscribe(data => {
       this.notesList = data
       console.log(data)
     });
@@ -37,12 +38,17 @@ export class AppComponent implements OnInit {
   addNotes(){
     let id = this.notesForm.controls['id'].value;
     if(this.notesForm.valid){
-      if(id)
+      if(id){
         this.appService.editNotes(id,this.notesForm.value).subscribe(data => {
-            this.getNotes('');
+            this.getNotes();
         })
-      else
-      this.appService.addNotes(this.notesForm.value).subscribe(data => console.log(data))
+        this.notesForm.reset();
+      }
+      else{
+        this.appService.addNotes(this.notesForm.value).subscribe(data => {
+          this.getNotes();
+        })
+      }
 
     }
   }
@@ -55,6 +61,14 @@ export class AppComponent implements OnInit {
   }
 
   deleteNotes(id: string){
-    this.appService.deleteNotes(id).subscribe(data => console.log(data))
+    this.appService.deleteNotes(id).subscribe(data => {
+      if(data){
+        Swal.fire({
+          title:'Deleted Successfully',
+          text:'',
+          type:'success'
+        });
+      }
+    })
   }
 }

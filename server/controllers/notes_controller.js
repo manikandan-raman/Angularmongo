@@ -37,7 +37,7 @@ exports.notes = (req,res) => {
 }
 
 exports.notes_update = (req,res) => {
-    Note.findByIdAndUpdate(req.params.id,{$set: req.body},(err) => {
+    Note.findOneAndUpdate(req.params.id,{$set: req.body},(err) => {
         if(err) throw err;
         res.json({
             'status': 1,
@@ -47,7 +47,7 @@ exports.notes_update = (req,res) => {
 }
 
 exports.notes_delete = (req,res) => {
-    Note.findByIdAndRemove(req.params.id,(err) => {
+    Note.findOneAndDelete(req.params.id,(err) => {
         if(err) throw err;
         res.send('Notes Deleted Successfully');
     })

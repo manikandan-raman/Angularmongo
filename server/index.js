@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 let notesRoutes = require('./routes/notes_routes');
 
 app.use('/notes',notesRoutes);
-
+mongoose.set('useFindAndModify', false);
 mongoose.connect(mongoUrl,{
         useNewUrlParser : true,
         useUnifiedTopology: true
